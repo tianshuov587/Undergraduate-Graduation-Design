@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VTE</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script type="text/javascript" src="fireaseConfig.js"></script>
+    <script src="./test.js"></script>
+</head>
+
+<body>
+    <h1>kidneydisease</h1>
+    <div>
+        <p>尿中尿蛋白與尿中肌酸酐比值(PCR)</p>
+        <input type="text" name="PCR" /><br />
+        <p>尿白蛋白與尿中肌酸酐比值(ACR)</p>
+        <input type="text" name="ACR" /><br />
+        <p>腎絲球過濾率 (GFR)</p>
+        <input type="text" name="GFR" /><br />
+
+        <button type="button" onclick="result()">看結果</button>
+        <p>結果在這: <span id="result"></span></p>
+        <button type="button" onclick="turnIndex()">返回</button>
+
+        <script>
+            window.onload = beforekidneydisease();
+            function result(){
+                //傳入物件
+                let obj = {};
+
+                let PCR = document.getElementsByName("PCR");
+                obj.PCR = PCR[0].value * 1.0;
+
+                let ACR = document.getElementsByName("ACR");
+                obj.ACR = ACR[0].value * 1.0;
+
+                let GFR = document.getElementsByName("GFR");
+                obj.GFR = GFR[0].value * 1.0;
+
+                console.log(obj);
+                const result = kidneydisease(obj);
+                document.getElementById("result").innerText = result;
+
+            }
+
+            function turnIndex() {
+                //換頁
+                window.location = './index.html';
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

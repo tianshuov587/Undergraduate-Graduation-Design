@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VTE</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script type="text/javascript" src="fireaseConfig.js"></script>
+    <script src="./test.js"></script>
+</head>
+
+<body>
+    <h1>livercancer</h1>
+    <div>
+        <p>性別</p>
+        <input type="radio" name="gender" value="是" />男<br />
+        <input type="radio" name="gender" value="否" />女<br />
+        <p>年齡</p>
+        <input type="text" name="age" /><br />
+        <p>肝功能指數SGPT</p>
+        <input type="text" name="SGPT" /><br />
+        <p>B型抗原(e抗原)</p>
+        <input type="radio" name="Be" value="是" />陽性反應<br />
+        <input type="radio" name="Be" value="否" />陰性反應<br />
+
+        <button type="button" onclick="result()">看結果</button>
+
+        <p>結果在這: <span id="result"></span></p>
+        <button type="button" onclick="turnIndex()">返回</button>
+        <script>
+            window.onload = beforelivercancer();
+
+            function result() {
+                //傳入物件
+                let obj = {};
+
+                let gender = document.getElementsByName("gender");
+                for (let i = 0; i < gender.length; i++) {
+                    if (gender[i].checked == true) {
+                        if (gender[i].value == "是") {
+                            obj.gender = "male";
+                        }
+                        else {
+                            obj.gender = "female";
+                        }
+                    }
+                }
+                let age = document.getElementsByName("age");
+                obj.age = age[0].value * 1.0;
+
+                let SGPT = document.getElementsByName("SGPT");
+                obj.SGPT = SGPT[0].value * 1.0;
+
+                let Be = document.getElementsByName("Be");
+                for (let i = 0; i < Be.length; i++) {
+                    if (Be[i].checked == true) {
+                        if (Be[i].value == "是") {
+                            obj.Be = true;
+                        }
+                        else {
+                            obj.Be = false;
+                        }
+                    }
+                }
+                console.log(obj);
+                const result = livercancer(obj);
+                document.getElementById("result").innerText = result;
+           }
+
+           function turnIndex() {
+                //換頁
+                window.location = './index.html';
+            }
+        </script>
+    </div>
+</body>
+
+</html>

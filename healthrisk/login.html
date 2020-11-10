@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>healthrisk</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script src="./firebaseConfig.js"></script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="css/logins.css" />
+    <link rel="stylesheet" href="css/file4.css" />
+    <div class="mark">BodyTalk</div>
+    <div class="namecard">
+
+        <h2>
+            <font face="微軟正黑體">登入</font>
+        </h2>
+        <lable for="accountL"></lable>
+        <p>帳號(Email)</p>
+        <input id="accountL" type="text">
+        <lable for="pwdL"></lable>
+        <p>密碼</p>
+        <input id="pwdL" type="password">
+        <button type="button" id="loginSmtBtn" onclick="signIn()">login</button>
+        <P>還沒有帳號嗎?
+            <a href="sign.html">註冊 </a>
+        </P>
+        <P>忘記密碼嗎? Email
+            <input id="chgPwd" type="text">
+            <button type="submit" id="chgPwdBtn"style="font-size: 8px;
+            border-radius: 12px;">忘記密碼</button>
+        </P>
+
+        <hr>
+        <h5 class="page_tittle"></h5>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+    </div>
+
+    <script>
+        //前測
+        window.onload = handleAuth;
+
+        //判斷是否有user
+        function handleAuth() {
+            if (Object.values(sessionStorage).length > 0) {
+                window.location = "./left-sidebar.html";
+            }
+        }
+
+        //登入
+        async function signIn() {
+            await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                .then(function () {
+                    let account = document.getElementById("accountL").value;
+                    let pwd = document.getElementById("pwdL").value;
+                    return firebase.auth().signInWithEmailAndPassword(account, pwd);
+                })
+                .catch(function (error) {
+                    alert(error.toString());
+                });
+            if (firebase.auth().currentUser) {
+                const { uid } = firebase.auth().currentUser
+                window.location = "./left-sidebar.html";
+            }
+        }
+        //註冊
+        // async function signUp() {
+        //     let account = document.getElementById("accountL").value;
+        //     let pwd = document.getElementById("pwdL").value;
+        //     const { user } = await firebase.auth().createUserWithEmailAndPassword(account, pwd);
+        //     const { uid } = user;
+        //     let obj = {};
+        //     obj[uid] = {
+        //         email:account,
+        //         password : pwd
+        //     }
+        //     let ref = firebase.database().ref('users');
+        //     await ref.set(obj)
+        //     window.location = "./left-sidebar.html";
+        // }
+
+
+
+        //Email/Pwd註冊
+        //var account = document.getElementById("account");
+        //var pwd = document.getElementById("pwd");
+        //var registerSmtBtn = document.getElementById("registerSmtBtn");
+        //registerSmtBtn.addEventListener("click", function(){
+        //  console.log(account.value);
+        //alert("成功註冊!");
+
+        //登入
+
+        // var accountL = document.getElementById("accountL");
+        // var pwdL = document.getElementById("pwdL");
+        // var loginSmtBtn = document.getElementById("loginSmtBtn");
+
+
+        // loginSmtBtn.addEventListener("click",function(){
+        //     console.log('haha');
+        // console.log(accountL.value);
+
+
+
+        // firebase.auth().signInWithEmailAndPassword(accountL.value, pwdL.value).catch(function(error) {
+
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     console.log(errorMessage);
+        // })
+        // },false);
+        // console.log('test');
+        // var user=firebase.auth().currentUser;
+        // if (user) {
+        // User is signed in.
+        // alert('登入成功')
+        //console.log("User is logined", user)
+        //} else {
+        // No user is signed in.
+        //user = null;
+
+        //}
+        //登出
+        //var signoutSmtBtn = document.getElementById("signoutSmtBtn");
+        //signoutSmtBtn.addEventListener("click",function(){
+        //firebase.auth().signOut().then(function() {
+        //   console.log("User sign out!");
+        // }, function(error) {
+        //   console.log("User sign out error!");
+        //})
+        //},false);
+
+        //Email驗證
+        //var verifyBtn = document.getElementById("verifyBtn");
+        // verifyBtn.addEventListener("click",function(){
+        // user.sendEmailVerification().then(function() {
+        //console.log("驗證信寄出");
+        // }, function(error) {
+        //    console.error("驗證信錯誤");
+        //});
+        //},false);
+
+        //更改密碼
+        var chgPwd = document.getElementById("chgPwd");
+        var chgPwdBtn = document.getElementById("chgPwdBtn");
+        chgPwdBtn.addEventListener("click", function () {
+            firebase.auth().sendPasswordResetEmail(chgPwd.value).then(function () {
+                // Email sent.
+                if (chgPwd.value == accountL.value) {
+                    console.log("更改密碼Email已發送");
+                    chgPwd.value = "";
+                }
+
+            }, function (error) {
+                //An error happened.
+                console.error("更改密碼", error);
+            });
+        }, false);
+
+        //查看目前登入狀況
+        // var user = firebase.auth().currentUser;
+        // if (user) {
+
+        //     console.log("User is logined", user)
+        // }
+        // else {
+        //     //windows.location();
+        // }
+
+        //firebase.auth().currentUser(function(user) {
+        //if (user) {
+
+        //console.log("User is logined", user)
+        //alert("登入成功!");
+        //} else {
+          //  user = null;
+        //console.log("User is not logined yet.");
+        //}
+        //});
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>A hypertension risk score for middle-aged and older adults</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script type="text/javascript" src="fireaseConfig.js"></script>
+    <script src="./test.js"></script>
+</head>
+
+<body>
+    <h1>A hypertension risk score for middle-aged and older adults</h1>
+    <div>
+        <p>年齡</p>
+        <input type="text" name="age" /><br />
+        <p>性別</p>
+        <input type="radio" name="gender" value="是" />男<br />
+        <input type="radio" name="gender" value="否" />女<br />
+        <p>是否有抽菸</p>
+        <input type="radio" name="smoke" value="是" />是<br />
+        <input type="radio" name="smoke" value="否" />否<br />
+        <p>是否有運動習慣</p>
+        <input type="radio" name="Exercise" value="是" />是<br />
+        <input type="radio" name="Exercise" value="否" />否<br />
+        <p>是否有高血壓家族歷史</p>
+        <input type="radio" name="FHOH" value="是" />是<br />
+        <input type="radio" name="FHOH" value="否" />否<br />
+        <p>BMI</p>
+        <input type="text" name="bmi" /><br />
+        <p>是否有糖尿病</p>
+        <input type="radio" name="Diabetes" value="是" />是<br />
+        <input type="radio" name="Diabetes" value="否" />否<br />
+        <p>心臟收縮血壓</p>
+        <input type="text" name="SBP" /><br />
+        <p>心臟舒張血壓</p>
+        <input type="text" name="DBP" /><br />
+
+        <button type="button" onclick="result()">看結果</button>
+        <p>結果在這: <span id="result"></span></p>
+        <button type="button" onclick="turnIndex()">返回</button>
+        <script>
+            window.onload = beforehyper();
+            function result() {
+                //傳入物件
+                let obj = {};
+
+                let age = document.getElementsByName("age");
+                obj.age = age[0].value * 1.0;
+
+                let gender = document.getElementsByName("gender");
+                for (let i = 0; i < gender.length; i++) {
+                    if (gender[i].checked == true) {
+                        if (gender[i].value == "是") {
+                            obj.gender = "male";
+                        }
+                        else {
+                            obj.gender = "female";
+                        }
+                    }
+                }
+                let smoke = document.getElementsByName("smoke");
+                for (let i = 0; i < smoke.length; i++) {
+                    if (smoke[i].checked == true) {
+                        if (smoke[i].value == "是") {
+                            obj.smoke = true;
+                        }
+                        else {
+                            obj.smoke = false;
+                        }
+                    }
+                }
+                let Exercise = document.getElementsByName("Exercise");
+                for (let i = 0; i < Exercise.length; i++) {
+                    if (Exercise[i].checked == true) {
+                        if (Exercise[i].value == "是") {
+                            obj.Exercise = true;
+                        }
+                        else {
+                            obj.Exercise = false;
+                        }
+                    }
+                }
+
+                let FHOH = document.getElementsByName("FHOH");
+                for (let i = 0; i < FHOH.length; i++) {
+                    if (FHOH[i].checked == true) {
+                        if (FHOH[i].value == "是") {
+                            obj.FHOH = true;
+                        }
+                        else {
+                            obj.FHOH = false;
+                        }
+                    }
+                }
+
+                let bmi = document.getElementsByName("bmi");
+                obj.bmi = bmi[0].value * 1.0;
+
+                let Diabetes = document.getElementsByName("Diabetes");
+                for (let i = 0; i < Diabetes.length; i++) {
+                    if (Diabetes[i].checked == true) {
+                        if (Diabetes[i].value == "是") {
+                            obj.Diabetes = true;
+                        }
+                        else {
+                            obj.Diabetes = false;
+                        }
+                    }
+                }
+
+                let SBP = document.getElementsByName("SBP");
+                obj.SBP = SBP[0].value * 1.0;
+
+                let DBP = document.getElementsByName("DBP");
+                obj.DBP = DBP[0].value * 1.0;
+
+                console.log(obj);
+                const result = hypertensionadult(obj);
+                document.getElementById("result").innerText = result;
+
+            }
+
+            function turnIndex() {
+                //換頁
+                window.location = './index.html';
+            }
+        </script>
+    </div>
+</body>
+
+
+</html>

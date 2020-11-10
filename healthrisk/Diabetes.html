@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Diabetes</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script type="text/javascript" src="fireaseConfig.js"></script>
+    <script src="./test.js"></script>
+</head>
+
+<body>
+    <h1>Diabetes</h1>
+    <div>
+        <p>性別</p>
+        <input type="radio" name="gender" value="是" />男<br />
+        <input type="radio" name="gender" value="否" />女<br />
+        <p>年齡</p>
+        <input type="text" name="age" /><br />
+        <p>BMI</p>
+        <input type="text" name="bmi" /><br />
+        <p>是否使用降血壓藥</p>
+        <input type="radio" name="bpm" value="是" />是<br />
+        <input type="radio" name="bpm" value="否" />否<br />
+        <p>是否過去有高血糖</p>
+        <input type="radio" name="Hhbg" value="是" />是<br />
+        <input type="radio" name="Hhbg" value="否" />否<br />
+        <p>一周內運動是否大於四小時</p>
+        <input type="radio" name="pa" value="是" />是<br />
+        <input type="radio" name="pa" value="否" />否<br />
+        <p>Daily consumption of vegetables,fruits,or berries</p>
+        <input type="radio" name="dcvfb" value="是" />是<br />
+        <input type="radio" name="dcvfb" value="否" />否<br />
+        <p>家人是否有糖尿病</p>
+        <input type="radio" name="FHOD" value="是" />是(請繼續下一題)<br />
+        <input type="radio" name="FHOD" value="否" />否(請略過下一題)<br />
+        <p>遺傳類型</p>
+        <input type="radio" name="firstdegree" value="是" />第一型<br />
+        <input type="radio" name="seconddegree" value="否" />第二型<br />
+        <button type="button" onclick="result()">看結果</button>
+        <p>結果在這: <span id="result"></span></p>
+        <button type="button" onclick="turnIndex()">返回</button>
+
+        <script>
+
+            window.onload = beforeDiabetes();
+            function result() {
+                //傳入物件
+                let obj = {};
+
+                let gender = document.getElementsByName("gender");
+                for (let i = 0; i < gender.length; i++) {
+                    if (gender[i].checked == true) {
+                        if (gender[i].value == "是") {
+                            obj.gender = "male";
+                        }
+                        else {
+                            obj.gender = "female";
+                        }
+                    }
+                }
+
+                let age = document.getElementsByName("age");
+                obj.age = age[0].value * 1.0;
+
+                let bmi = document.getElementsByName("bmi");
+                obj.bmi = bmi[0].value * 1.0;
+
+                let bpm = document.getElementsByName("bpm");
+                for (let i = 0; i < bpm.length; i++) {
+                    if (bpm[i].checked == true) {
+                        if (bpm[i].value == "是") {
+                            obj.bpm = true;
+                        }
+                        else {
+                            obj.bpm = false;
+                        }
+                    }
+                }
+
+               
+
+                let Hhbg = document.getElementsByName("Hhbg");
+                for (let i = 0; i < Hhbg.length; i++) {
+                    if (Hhbg[i].checked == true) {
+                        if (Hhbg[i].value == "是") {
+                            obj.Hhbg = true;
+                        }
+                        else {
+                            obj.Hhbg = false;
+                        }
+                    }
+                }
+
+                let pa = document.getElementsByName("pa");
+                for (let i = 0; i < pa.length; i++) {
+                    if (pa[i].checked == true) {
+                        if (pa[i].value == "是") {
+                            obj.pa = true;
+                        }
+                        else {
+                            obj.pa = false;
+                        }
+                    }
+                }
+
+                let dcvfb = document.getElementsByName("dcvfb");
+                for (let i = 0; i < dcvfb.length; i++) {
+                    if (dcvfb[i].checked == true) {
+                        if (dcvfb[i].value == "是") {
+                            obj.dcvfb = true;
+                        }
+                        else {
+                            obj.dcvfb = false;
+                        }
+                    }
+                }
+
+                let FHOD = document.getElementsByName("FHOD");
+                for (let i = 0; i < FHOD.length; i++) {
+                    if (FHOD[i].checked == true) {
+                        if (FHOD[i].value == "是") {
+                            obj.FHOD = true;
+                        }
+                        else {
+                            obj.FHOD = false;
+                        }
+                    }
+                }
+
+                if (obj.FHOD) {
+                    let firstdegree = document.getElementsByName("firstdegree");
+                    if (firstdegree[0].checked == true) {
+                        if (firstdegree[0].value == "是") {
+                            obj.firstdegree = true;
+                        }
+                        else {
+                            obj.firstdegree = false;
+                        }
+                    }
+                    let seconddegree = document.getElementsByName("seconddegree");
+                    if (seconddegree[0].checked == true) {
+                        if (seconddegree[0].value == "是") {
+                            obj.seconddegree = true;
+                        }
+                        else {
+                            obj.seconddegree = false;
+                        }
+                    }
+                }
+                console.log(obj);
+                const result = Diabetes(obj);
+                document.getElementById("result").innerText = result;
+
+            }
+            function turnIndex() {
+                //換頁
+                window.location = './index.html';
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+	<title>Body Talk</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/skel.min.js"></script>
+	<script src="js/skel-panels.min.js"></script>
+	<script src="js/init.js"></script>
+	<noscript>
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+		 crossorigin="anonymous">
+	</noscript>
+	<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+	<script src="./firebaseConfig.js"></script>
+	<!-- Firebase App is always required and must be first -->
+
+	<!-- Add additional services that you want to use -->
+</head>
+
+<body class="健康新聞">
+	<script src="./js/news.js"></script>
+
+	<script>
+
+			//test();
+
+	</script>
+	<div id='hnews'>
+	<!-- Header -->
+	<div id="header">
+		<div id="nav-wrapper">
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li class="active">
+						<a href="index.html">健康新聞</a>
+					</li>
+					<li>
+						<a href="left-sidebar.html">健康分析</a>
+					</li>
+					<li>
+						<a href="right-sidebar.html">個人資料</a>
+					</li>
+					<li>
+						<a href="https://wayne8510.shinyapps.io/Firebase_map/?fbclid=IwAR0knOHysH4_BrDfTGZ7ga9chGeYXjFk5ffFAXn8bXzzSfoAabqaATxK7SU"target="_blank">附近診所</a>
+					</li>
+					<li>
+							<a href="https://r-healthinput.shinyapps.io/healthProject/"target="_blank">健康存摺</a>
+					</li>
+					<li>
+						<a href="login.html">登入/註冊</a>
+					</li>
+					
+
+				</ul>
+
+
+			
+			</nav>
+		</div>
+	
+
+	
+	<div class="container">
+
+		<!-- Logo -->
+		<div id="logo">
+			<h1>
+				<a href="#">Body Talk</a>
+			</h1>
+			<span class="tag"></span>
+		</div>
+	</div>
+	</div>
+</div>
+
+	<!-- Featured -->
+	<div id="featured">
+		<div class="container">
+			<header>
+				<h2>歡迎來到Body Talk</h2>
+			</header>
+			<!-- <p> 這是 -->
+				<!-- <strong> 長庚大學 </strong> 畢業專題小組的分析方法: -->
+				<!-- <a href="http://www.cgu.edu.tw/bin/home.php">長庚大學</a>. </p> -->
+			<hr />
+			<div class="row">
+				<section class="4u">
+					<span class="pennant">
+						<span class="fa fa-medkit"></span>
+					</span>
+					<h3>健康分析</h3>
+					<p>藉由國外知名大專院校論文之演算法為您診斷各種常見疾病的發病機率.</p>
+					<a href="left-sidebar.html" class="button button-style1">Read More</a>
+				</section>
+				<section class="4u">
+					<span class="pennant">
+						<span class="fa fa-user"></span>
+					</span>
+					<h3>個人資料</h3>
+					<p>這裡可以看到您的個人資料與歷史病例.
+						<br/>
+						<br/>
+					</p>
+					<a href="right-sidebar.html" class="button button-style1">Read More</a>
+				</section>
+				<section class="4u">
+					<span class="pennant">
+						<span class="fa fa-globe"></span>
+					</span>
+					<h3>附近診所</h3>
+					<p>為您提供您所在位置附近的診所.
+						<br/>
+						<br/>
+					</p>
+					<a href="https://wayne8510.shinyapps.io/Firebase_map/?fbclid=IwAR0knOHysH4_BrDfTGZ7ga9chGeYXjFk5ffFAXn8bXzzSfoAabqaATxK7SU" class="button button-style1">Read More</a>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Main -->
+	<div id="main">
+		<div id="content" class="container">
+
+			<div class="row">
+
+				<script>
+					let img;
+					let leng;
+					const imgRef = firebase.database().ref('picture');
+					imgRef.once('value').then(function (snapshot) {
+						img = snapshot.val()
+					});
+					const newRef = firebase.database().ref('news')
+					newRef.once('value').then(function (snapshot) {
+						var val = snapshot.val();
+						var list = new Array();
+						$.each(val, function (i, item) {
+							var random;
+							var picture;
+							if (i >= 0 && i <= 19) {
+								leng = Object.keys(img.heart).length;
+								random = Math.floor((Math.random() * leng));
+								picture = Object.values(img.heart)[random];
+							}
+							else if (i >= 20 && i <= 39) {
+								leng = Object.keys(img.diabetes).length;
+								random = Math.floor((Math.random() * leng));
+								picture = Object.values(img.diabetes)[random];
+							}
+							else if (i >= 40 && i <= 59) {
+								leng = Object.keys(img.lung).length;
+								random = Math.floor((Math.random() * leng));
+								picture = Object.values(img.lung)[random];
+							}
+							else if (i >= 60 && i <= 79) {
+								leng = Object.keys(img.liver).length;
+								random = Math.floor((Math.random() * leng));
+								picture = Object.values(img.liver)[random];
+							}
+							else if (i >= 80 && i <= 99) {
+								leng = Object.keys(img.kidney).length;
+								random = Math.floor((Math.random() * leng));
+								picture = Object.values(img.kidney)[random];
+							}
+							list = `${list}<section><p><p style="font-size:21px; font-family:微軟正黑體;">${item.title}</h5></p>
+							<a href="${item.pk}"><img src="${picture}"> </a> </section>`
+						});
+						$('#newsList').html(list)
+					});				   
+				</script>
+			</div>
+
+			<div class="row" id="newsList">
+
+				<!-- 
+					<section class="6u">
+						<a href="#3" class="image full"><img src="images/pic03.jpg" alt=""></a>
+						<header>
+							<h2>標題</h2>
+						</header>
+						<p>內文.</p>
+					</section>				
+					<section class="6u">
+						<a href="#4" class="image full"><img src="images/pic04.jpg" alt=""></a>
+						<header>
+							<h2>標題</h2>
+						</header>
+						<p>內文.</p>
+					</section>				 -->
+			</div>
+
+		</div>
+	</div>
+
+	<!-- //var myDataRef = new Firebase('https://health-d2d0f.firebaseio.com/'); //$(myDataRef).ready(function(){ //function display_data(p){
+	// $('#main').text(p); //} //firebase.database().ref('posts/').on('0', function(snapshot) { // console.log(snapshot.val())
+	//display_data(snapshot.val()); //}); //}); // -->
+
+
+	<!-- Tweet -->
+	<div id="tweet">
+		<div class="container">
+			<section>
+				<blockquote>&ldquo;Body Talk&rdquo;</blockquote>
+			</section>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+		<div class="container">
+			<section>
+				<header>
+					<h2>Body Talk</h2>
+					<span class="byline"></span>
+				</header>
+				<ul class="contact">
+					<li>
+						<a href="#" class="fa fa-twitter">
+							<span></span>
+						</a>
+					</li>
+					<li class="active">
+						<a href="#" class="fa fa-facebook">
+							<span></span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="fa fa-dribbble">
+							<span></span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="fa fa-tumblr">
+							<span></span>
+						</a>
+					</li>
+				</ul>
+			</section>
+		</div>
+	</div>
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design:
+			<a href="http://templated.co"></a> 
+			<a href="http://unsplash.com"></a> 
+			<a href="http://unsplash.com/cc0"></a>
+		</div>
+	</div>
+
+</body>
+</html>

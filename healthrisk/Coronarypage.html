@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Coronary Heart disease</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script type="text/javascript" src="fireaseConfig.js"></script>
+    <script src="./test.js"></script>
+</head>
+
+<body>
+    <h1>Coronary Heart disease</h1>
+    <div>
+        <p>年齡</p>
+        <input type="text" name="age" /><br />
+        <p>性別</p>
+        <input type="radio" name="gender" value="是" />男<br />
+        <input type="radio" name="gender" value="否" />女<br />
+        <p>高密度質蛋白</p>
+        <input type="text" name="HDL" />
+        <p>心臟收縮血壓</p>
+        <input type="text" name="SBP" /><br />
+        <p>心臟收縮血壓是否有被治療追蹤</p>
+        <input type="radio" name="treated" value="是" />是<br />
+        <input type="radio" name="treated" value="否" />否<br />
+        <p>是否有抽菸</p>
+        <input type="radio" name="smoke" value="是" />是<br />
+        <input type="radio" name="smoke" value="否" />否<br />
+        <p>總膽固醇</p>
+        <input type="text" name="TotalCholesterol" /><br />
+        <button type="button" onclick="result()">看結果</button>
+        <p>結果在這: <span id="result"></span></p>
+        <button type="button" onclick="turnIndex()">返回</button>
+        <script>
+            window.onload = beforeCor();
+            function result() {
+                //傳入物件
+                let obj = {};
+
+                let age = document.getElementsByName("age");
+                obj.age = age[0].value * 1.0;
+
+                let SBP = document.getElementsByName("SBP");
+                obj.SBP = SBP[0].value * 1.0;
+
+                let treated = document.getElementsByName("treated");
+                for (let i = 0; i < treated.length; i++) {
+                    if (treated[i].checked == true) {
+                        if (treated[i].value == "是") {
+                            obj.treated = true;
+                        }
+                        else {
+                            obj.treated = false;
+                        }
+                    }
+                }
+
+                let gender = document.getElementsByName("gender");
+                for (let i = 0; i < gender.length; i++) {
+                    if (gender[i].checked == true) {
+                        if (gender[i].value == "是") {
+                            obj.gender = "male";
+                        }
+                        else {
+                            obj.gender = "female";
+                        }
+                    }
+                }
+
+                let HDL = document.getElementsByName("HDL");
+                obj.HDL = HDL[0].value * 1.0;
+
+                let smoke = document.getElementsByName("smoke");
+                for (let i = 0; i < smoke.length; i++) {
+                    if (smoke[i].checked == true) {
+                        if (smoke[i].value == "是") {
+                            obj.smoke = true;
+                        }
+                        else {
+                            obj.smoke = false;
+                        }
+                    }
+                }
+                let TotalCholesterol = document.getElementsByName("TotalCholesterol");
+                obj.TotalCholesterol = TotalCholesterol[0].value * 1.0;
+
+                console.log(obj);
+                const result = Coronary(obj);
+                document.getElementById("result").innerText = result;
+            }
+
+            function turnIndex() {
+                //換頁
+                window.location = './index.html';
+            }
+        </script>
+    </div>
+</body>
+
+</html>
